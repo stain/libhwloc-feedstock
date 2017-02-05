@@ -11,6 +11,18 @@ Summary: Portable Hardware Locality (hwloc)
 
 
 
+Current build status
+====================
+
+Linux: [![Circle CI](https://circleci.com/gh/conda-forge/libhwloc-feedstock.svg?style=shield)](https://circleci.com/gh/conda-forge/libhwloc-feedstock)
+OSX: [![TravisCI](https://travis-ci.org/conda-forge/libhwloc-feedstock.svg?branch=master)](https://travis-ci.org/conda-forge/libhwloc-feedstock)
+Windows: ![](https://cdn.rawgit.com/conda-forge/conda-smithy/90845bba35bec53edac7a16638aa4d77217a3713/conda_smithy/static/disabled.svg)
+
+Current release info
+====================
+Version: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/libhwloc/badges/version.svg)](https://anaconda.org/conda-forge/libhwloc)
+Downloads: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/libhwloc/badges/downloads.svg)](https://anaconda.org/conda-forge/libhwloc)
+
 Installing libhwloc
 ===================
 
@@ -31,7 +43,6 @@ It is possible to list all of the versions of `libhwloc` available on your platf
 ```
 conda search libhwloc --channel conda-forge
 ```
-
 
 
 About conda-forge
@@ -67,18 +78,6 @@ Terminology
 
 **conda-forge** - the place where the feedstock and smithy live and work to
                   produce the finished article (built conda distributions)
-
-Current build status
-====================
-
-Linux: [![Circle CI](https://circleci.com/gh/conda-forge/libhwloc-feedstock.svg?style=shield)](https://circleci.com/gh/conda-forge/libhwloc-feedstock)
-OSX: [![TravisCI](https://travis-ci.org/conda-forge/libhwloc-feedstock.svg?branch=master)](https://travis-ci.org/conda-forge/libhwloc-feedstock)
-Windows: ![](https://cdn.rawgit.com/conda-forge/conda-smithy/90845bba35bec53edac7a16638aa4d77217a3713/conda_smithy/static/disabled.svg)
-
-Current release info
-====================
-Version: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/libhwloc/badges/version.svg)](https://anaconda.org/conda-forge/libhwloc)
-Downloads: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/libhwloc/badges/downloads.svg)](https://anaconda.org/conda-forge/libhwloc)
 
 
 Updating libhwloc-feedstock
