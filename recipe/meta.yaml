@@ -22,9 +22,9 @@ build:
 
 requirements:
   build:
-    - libxml2 2.9.3
+    - libxml2 2.9.*
   run:
-    - libxml2 2.9.3
+    - libxml2 2.9.*
 
 test:
   commands:
