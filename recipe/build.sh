@@ -10,6 +10,7 @@ DISABLES="$DISABLES --disable-gl --disable-libnuma --disable-libudev"
 if [ `uname` == Darwin ]; then
     ./configure --prefix=$PREFIX --disable-shared $DISABLES
 else
+    export LDFLAGS="${LDFLAGS} -Wl,--as-needed"
     ./configure --prefix=$PREFIX $DISABLES
 fi
 
