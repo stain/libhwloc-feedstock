@@ -1,7 +1,7 @@
 {% set name = "libhwloc" %}
 {% set pname = "hwloc" %}
-{% set version = "1.11.9" %}
-{% set sha256 = "85b978995b67db0b1a12dd1a73b09ef3d39f8e3cb09f8b9c60cf04633acce46c" %}
+{% set version = "2.0.0" %}
+{% set sha256 = "a0d425a0fc7c7e3f2c92a272ffaffbd913005556b4443e1887d2e1718d902887" %}
 
 package:
   name: {{ name|lower }}
@@ -11,10 +11,6 @@ source:
   fn: {{ pname }}-{{ version }}.tar.gz
   url: https://www.open-mpi.org/software/hwloc/v{{ '.'.join(version.split('.')[:2]) }}/downloads/{{ pname }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
-  patches:
-    # Two tests fail during CI on Linux hosts, for currently unknown reasons.
-    # This patch removes/disables those.
-    - disable-failing-test.patch
 
 build:
   number: 0
