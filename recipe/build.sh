@@ -28,9 +28,10 @@ case `uname` in
         autoreconf -i
         chmod +x configure
         sed -i "s/-Wl,-DLL,-IMPLIB/-link -DLL -IMPLIB/g" configure
-        sed -i "s|--output-def -Xlinker .libs/libhwloc.def|-def:.libs/libhwloc.def -Xlinker -defaultlib:gdi32.lib|g" hwloc/Makefile.in
-        sed -i "s|--output-def -Xlinker .libs/libhwloc.def|-def:.libs/libhwloc.def -Xlinker -defaultlib:gdi32.lib|g" hwloc/Makefile.am
+        sed -i "s|--output-def -Xlinker .libs/libhwloc.def|-def:.libs/libhwloc.def|g" hwloc/Makefile.in
+        sed -i "s|--output-def -Xlinker .libs/libhwloc.def|-def:.libs/libhwloc.def|g" hwloc/Makefile.am
         ./configure --prefix="$PREFIX/Library" --libdir="$PREFIX/Library/lib" $DISABLES
+        make -j${CPU_COUNT} V=1 LDFLAGS="$LDFLAGS gdi32.lib pthreads.lib user32.lib"
         ;;
 esac
 
