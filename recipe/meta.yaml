@@ -19,7 +19,7 @@ build:
 requirements:
   build:
     - {{ compiler('cxx') }}
-    - pkg-config
+    - pkg-config                # [unix]
     - posix                     # [win]
     - clangdev                  # [win]
     - lld                       # [win]
