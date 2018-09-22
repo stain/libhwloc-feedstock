@@ -28,8 +28,8 @@ case `uname` in
         autoreconf -i
         chmod +x configure
         sed -i "s/-Wl,-DLL,-IMPLIB/-link gdi32.lib -DLL -IMPLIB/g" configure
-        sed -i "s/--output-def /-def:/g" hwloc/Makefile.in
-        sed -i "s/--output-def /-def:/g" hwloc/Makefile.am
+        sed -i "s|--output-def |-Xlinker -def:.libs/libhwloc.def -Xlinker -defaultlib:gdi32.lib|g" hwloc/Makefile.in
+        sed -i "s|--output-def |-Xlinker -def:.libs/libhwloc.def -Xlinker -defaultlib:gdi32.lib|g" hwloc/Makefile.am
         ./configure --prefix="$PREFIX/Library" --libdir="$PREFIX/Library/lib" $DISABLES
         ;;
 esac
