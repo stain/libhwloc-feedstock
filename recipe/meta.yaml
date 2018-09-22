@@ -14,12 +14,20 @@ source:
 
 build:
   number: 0
-  skip: True  # [win]
+  skip: True  # [win and vc<14]
 
 requirements:
   build:
     - {{ compiler('cxx') }}
     - pkg-config
+    - posix                     # [win]
+    - clangdev                  # [win]
+    - lld                       # [win]
+    - m2-automake-wrapper       # [win]
+    - m2-libtool                # [win]
+    - m2-autoconf               # [win]
+    - m2-make                   # [win]
+    - m2-m4                     # [win]
   host:
     - libxml2
   run:
