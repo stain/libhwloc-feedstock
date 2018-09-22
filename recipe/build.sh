@@ -24,7 +24,7 @@ case `uname` in
         export LD=link
         export CFLAGS="-MD -I$PREFIX/Library/include -O3"
         export CXXFLAGS="-MD -I$PREFIX/Library/include -O3"
-        export LDFLAGS="$LDFLAGS -L$PREFIX/Library/lib"
+        export LDFLAGS="$LDFLAGS -L$PREFIX/Library/lib -no-undefined"
         autoreconf -i
         chmod +x configure
         sed -i "s/-Wl,-DLL,-IMPLIB/-link -DLL -IMPLIB/g" configure
