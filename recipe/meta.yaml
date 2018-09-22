@@ -18,9 +18,11 @@ build:
 
 requirements:
   build:
-    - libxml2 2.9.*
+    - {{ compiler('cxx') }}
+  host:
+    - libxml2
   run:
-    - libxml2 2.9.*
+    - libxml2
 
 test:
   commands:
