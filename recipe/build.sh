@@ -25,6 +25,8 @@ case `uname` in
         export CFLAGS="-MD -I$PREFIX/Library/include -O3"
         export CXXFLAGS="-MD -I$PREFIX/Library/include -O3"
         export LDFLAGS="$LDFLAGS -L$PREFIX/Library/lib"
+        autoreconf -i
+        chmod +x configure
         sed -i "s/-Wl,-DLL,-IMPLIB/-link -DLL -IMPLIB/g" configure
         ./configure --prefix="$PREFIX/Library" --libdir="$PREFIX/Library/lib" $DISABLES
         ;;
