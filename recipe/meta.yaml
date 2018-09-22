@@ -19,6 +19,7 @@ build:
 requirements:
   build:
     - {{ compiler('cxx') }}
+    - pkg-config
   host:
     - libxml2
   run:
