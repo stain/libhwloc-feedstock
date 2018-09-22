@@ -28,6 +28,8 @@ case `uname` in
         autoreconf -i
         chmod +x configure
         sed -i "s/-Wl,-DLL,-IMPLIB/-link -DLL -IMPLIB/g" configure
+        sed -i "s/--output-def /-def:/g" hwloc/Makefile.in
+        sed -i "s/--output-def /-def:/g" hwloc/Makefile.am
         ./configure --prefix="$PREFIX/Library" --libdir="$PREFIX/Library/lib" $DISABLES
         ;;
 esac
