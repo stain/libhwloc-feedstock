@@ -13,6 +13,7 @@ source:
   sha256: {{ sha256 }}
   patches:
     - unistd.diff
+    - s_irwxu.patch
 
 build:
   number: 0
