@@ -36,7 +36,8 @@ case `uname` in
         autoreconf -i
         chmod +x configure
         chmod +x "$CC"
-        ./configure --prefix="$PREFIX/Library" --libdir="$PREFIX/Library/lib" $DISABLES || cat config.log
+        ./configure --prefix="$PREFIX/Library" --libdir="$PREFIX/Library/lib" $DISABLES
+        make V=1
         ;;
 esac
 

@@ -5,9 +5,12 @@ import subprocess
 link_args = []
 args = []
 print(sys.argv)
-for i, arg in enumerate(sys.argv):
-    if i == 0:
-        continue
+i = 0
+while(True):
+    i = i + 1
+    if (i >= len(sys.argv)):
+        break
+    arg = sys.argv[i]
     if arg.startswith("-L"):
         if arg == "-L":
             i=i+1
@@ -31,6 +34,10 @@ for i, arg in enumerate(sys.argv):
         continue
     elif arg.endswith(".lib"):
         link_args.append(arg)
+    elif arg=="--output-def":
+        i = i + 1
+        arg = sys.argv[i]
+        link_args.append("-def:"+arg)
     else:
         args.append(arg)
 
