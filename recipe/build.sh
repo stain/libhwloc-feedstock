@@ -33,6 +33,7 @@ case `uname` in
         done
         # Skip failing tests that are skipped on Linux x86_64 and OSX, but not skipped on windows
         sed -i "s|SUBDIRS += x86||g" tests/hwloc/Makefile.am
+        sed -i "s|--output-def -Xlinker .libs/libhwloc.def|-def:.libs/libhwloc.def|g" hwloc/Makefile.am
         autoreconf -i
         chmod +x configure
         chmod +x "$CC"
