@@ -27,10 +27,6 @@ case `uname` in
         export CFLAGS="-MD -I$PREFIX/Library/include -O2 -Dstrcasecmp=_stricmp"
         export CXXFLAGS="-MD -I$PREFIX/Library/include -O2 -Dstrcasecmp=_stricmp"
         export LDFLAGS="$LDFLAGS -L$PREFIX/Library/lib -no-undefined gdi32.lib $PREFIX/Library/lib/pthreads.lib user32.lib"
-        for sh_file in test-hwloc-annotate.sh test-hwloc-calc.sh test-hwloc-diffpatch.sh test-hwloc-distrib.sh test-hwloc-compress-dir.sh; do
-            # ignore CR LF differences
-            sed -i "s|@HWLOC_DIFF_U@|@HWLOC_DIFF_U@ --strip-trailing-cr|g" utils/hwloc/$sh_file.in
-        done
         # Skip failing tests that are skipped on Linux x86_64 and OSX, but not skipped on windows
         sed -i "s|SUBDIRS += x86||g" tests/hwloc/Makefile.am
         sed -i "s|--output-def -Xlinker .libs/libhwloc.def|-def:.libs/libhwloc.def|g" hwloc/Makefile.am
