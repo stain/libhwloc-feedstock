@@ -11,6 +11,8 @@ source:
   fn: {{ pname }}-{{ version }}.tar.gz
   url: https://www.open-mpi.org/software/hwloc/v{{ '.'.join(version.split('.')[:2]) }}/downloads/{{ pname }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
+  patches:
+    - unistd.diff
 
 build:
   number: 0
@@ -29,6 +31,7 @@ requirements:
     - m2-autoconf               # [win]
     - m2-make                   # [win]
     - m2-m4                     # [win]
+    - python >3                 # [win]
   host:
     - libxml2
     - pthreads-win32            # [win]

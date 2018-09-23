@@ -16,32 +16,24 @@ case `uname` in
         ./configure --prefix=$PREFIX $DISABLES
         ;;
     MINGW*)
-        export PATH="$PREFIX/Library/bin:$BUILD_PREFIX/Library/bin:$PATH"
-        export CC=clang-cl
+        export PATH="$PREFIX/Library/bin:$BUILD_PREFIX/Library/bin:$RECIPE_DIR:$PATH"
+        export CC="cl_wrapper.py"
         export RANLIB=llvm-ranlib
         export AS=llvm-as
         export AR=llvm-ar
         export LD=link
         export CFLAGS="-MD -I$PREFIX/Library/include -O2 -Dstrcasecmp=_stricmp"
         export CXXFLAGS="-MD -I$PREFIX/Library/include -O2 -Dstrcasecmp=_stricmp"
-        export CPATH="$PREFIX/Library/include"
-        export LDFLAGS="$LDFLAGS -L$PREFIX/Library/lib -no-undefined"
-        autoreconf -i
-        chmod +x configure
-        sed -i "s/-Wl,-DLL,-IMPLIB/-link -DLL -IMPLIB/g" configure
-        sed -i "s|--output-def -Xlinker .libs/libhwloc.def|-def:.libs/libhwloc.def|g" hwloc/Makefile.in
-        sed -i "s|--output-def -Xlinker .libs/libhwloc.def|-def:.libs/libhwloc.def|g" hwloc/Makefile.am
+        export LDFLAGS="$LDFLAGS -L$PREFIX/Library/lib -no-undefined gdi32.lib $PREFIX/Library/lib/pthreads.lib user32.lib"
         for sh_file in test-hwloc-annotate.sh test-hwloc-calc.sh test-hwloc-diffpatch.sh test-hwloc-distrib.sh test-hwloc-compress-dir.sh; do
             # ignore CR LF differences
             sed -i "s|@HWLOC_DIFF_U@|@HWLOC_DIFF_U@ --strip-trailing-cr|g" utils/hwloc/$sh_file.in
         done
-        sed -i "s|#include <unistd.h>||g" "doc/examples/cpuset+bitmap+cpubind.c"
-        sed -i "s|#include <unistd.h>||g" "doc/examples/nodeset+membind+policy.c"
-        sed -i "s|#include <unistd.h>|#define pid_t int|g" "doc/examples/shared-caches.c"
+        # Skip failing tests that are skipped on Linux x86_64 and OSX, but not skipped on windows
         sed -i "s|SUBDIRS += x86||g" tests/hwloc/Makefile.am
-
+        autoreconf -i
+        chmod +x configure
         ./configure --prefix="$PREFIX/Library" --libdir="$PREFIX/Library/lib" $DISABLES
-        make -j${CPU_COUNT} V=1 LDFLAGS="$LDFLAGS gdi32.lib $PREFIX/Library/lib/pthreads.lib user32.lib"
         ;;
 esac
 
