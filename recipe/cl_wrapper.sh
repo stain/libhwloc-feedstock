@@ -4,6 +4,7 @@ import subprocess
 
 link_args = []
 args = []
+print(sys.argv)
 for i, arg in enumerate(sys.argv):
     if i == 0:
         continue
@@ -36,7 +37,7 @@ if len(link_args) > 0:
     args.extend(link_args)
 
 args = ["clang-cl"] + args
-
+print(args)
 try:
     subprocess.check_call(args)
 except subprocess.CalledProcessError as e:
