@@ -31,6 +31,15 @@ case `uname` in
         sed -i "s/-Wl,-DLL,-IMPLIB/-link -DLL -IMPLIB/g" configure
         sed -i "s|--output-def -Xlinker .libs/libhwloc.def|-def:.libs/libhwloc.def|g" hwloc/Makefile.in
         sed -i "s|--output-def -Xlinker .libs/libhwloc.def|-def:.libs/libhwloc.def|g" hwloc/Makefile.am
+        for sh_file in test-hwloc-annotate.sh test-hwloc-calc.sh test-hwloc-diffpatch.sh test-hwloc-distrib.sh test-hwloc-compress-dir.sh; do
+            # ignore CR LF differences
+            sed -i "s|diff -u|diff --strip-trailing-cr -u|g" $sh_file
+        done
+        sed -i "s|#include <unistd.h>||g" "doc/examples/cpuset+bitmap+cpubind.c"
+        sed -i "s|#include <unistd.h>||g" "doc/examples/nodeset+membind+policy.c"
+        sed -i "s|#include <unistd.h>|#define pid_t int|g" "doc/examples/shared-caches.c"
+        sed -i "s|SUBDIRS += x86||g" tests/hwloc/Makefile.am
+
         ./configure --prefix="$PREFIX/Library" --libdir="$PREFIX/Library/lib" $DISABLES
         make -j${CPU_COUNT} V=1 LDFLAGS="$LDFLAGS gdi32.lib $PREFIX/Library/lib/pthreads.lib user32.lib"
         ;;
