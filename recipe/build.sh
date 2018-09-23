@@ -31,7 +31,7 @@ case `uname` in
         sed -i "s|--output-def -Xlinker .libs/libhwloc.def|-def:.libs/libhwloc.def|g" hwloc/Makefile.in
         sed -i "s|--output-def -Xlinker .libs/libhwloc.def|-def:.libs/libhwloc.def|g" hwloc/Makefile.am
         ./configure --prefix="$PREFIX/Library" --libdir="$PREFIX/Library/lib" $DISABLES
-        make -j${CPU_COUNT} V=1 LDFLAGS="$LDFLAGS gdi32.lib pthreads.lib user32.lib"
+        make -j${CPU_COUNT} V=1 LDFLAGS="$LDFLAGS gdi32.lib -Xlinker pthreads.lib user32.lib"
         ;;
 esac
 
