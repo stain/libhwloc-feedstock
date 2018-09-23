@@ -35,7 +35,7 @@ case `uname` in
         sed -i "s|SUBDIRS += x86||g" tests/hwloc/Makefile.am
         autoreconf -i
         chmod +x configure
-        chmod +x "$RECIPE_DIR/$CC"
+        chmod +x "$CC"
         ./configure --prefix="$PREFIX/Library" --libdir="$PREFIX/Library/lib" $DISABLES || cat config.log
         ;;
 esac
