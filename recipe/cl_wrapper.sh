@@ -4,7 +4,6 @@ import subprocess
 
 link_args = []
 args = []
-print(sys.argv)
 i = 0
 while(True):
     i = i + 1
@@ -34,10 +33,6 @@ while(True):
         continue
     elif arg.endswith(".lib"):
         link_args.append(arg)
-    elif arg=="--output-def":
-        i = i + 1
-        arg = sys.argv[i]
-        link_args.append("-def:"+arg)
     else:
         args.append(arg)
 
@@ -46,7 +41,6 @@ if len(link_args) > 0:
     args.extend(link_args)
 
 args = ["clang-cl"] + args
-print(args)
 try:
     subprocess.check_call(args)
 except subprocess.CalledProcessError as e:

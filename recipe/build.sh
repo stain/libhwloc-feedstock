@@ -26,7 +26,7 @@ case `uname` in
         export LD=link
         export CFLAGS="-MD -I$PREFIX/Library/include -O2 -Dstrcasecmp=_stricmp"
         export CXXFLAGS="-MD -I$PREFIX/Library/include -O2 -Dstrcasecmp=_stricmp"
-        export LDFLAGS="$LDFLAGS -L$PREFIX/Library/lib -no-undefined gdi32.lib $PREFIX/Library/lib/pthreads.lib user32.lib"
+        export LDFLAGS="$LDFLAGS -L$PREFIX/Library/lib -no-undefined"
         # Skip failing tests that are skipped on Linux x86_64 and OSX, but not skipped on windows
         sed -i "s|SUBDIRS += x86||g" tests/hwloc/Makefile.am
         sed -i "s|--output-def -Xlinker .libs/libhwloc.def|-def:.libs/libhwloc.def|g" hwloc/Makefile.am
