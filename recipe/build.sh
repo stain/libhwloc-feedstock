@@ -22,8 +22,9 @@ case `uname` in
         export AS=llvm-as
         export AR=llvm-ar
         export LD=link
-        export CFLAGS="-MD -I$PREFIX/Library/include -O3 -Dstrcasecmp=_stricmp"
-        export CXXFLAGS="-MD -I$PREFIX/Library/include -O3 -Dstrcasecmp=_stricmp"
+        export CFLAGS="-MD -I$PREFIX/Library/include -O2 -Dstrcasecmp=_stricmp"
+        export CXXFLAGS="-MD -I$PREFIX/Library/include -O2 -Dstrcasecmp=_stricmp"
+        export CPATH="$PREFIX/Library/include"
         export LDFLAGS="$LDFLAGS -L$PREFIX/Library/lib -no-undefined"
         autoreconf -i
         chmod +x configure
