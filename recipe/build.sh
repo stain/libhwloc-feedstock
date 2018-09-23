@@ -17,7 +17,7 @@ case `uname` in
         ;;
     MINGW*)
         export PATH="$PREFIX/Library/bin:$BUILD_PREFIX/Library/bin:$RECIPE_DIR:$PATH"
-        export CC="cl_wrapper.py"
+        export CC="cl_wrapper.sh"
         export RANLIB=llvm-ranlib
         export AS=llvm-as
         export AR=llvm-ar
