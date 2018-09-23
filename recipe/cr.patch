@@ -1,14 +1,14 @@
-commit 8e8e5a20f003e4d42c48195fcd9024b51dfc35ff
+commit b6d2b7b980af80bef18e5bbf5147b86244cf1149
 Author: Isuru Fernando <isuruf@gmail.com>
 Date:   Sun Sep 23 13:44:46 2018 -0500
 
     Ignore CR in diff tests
 
 diff --git a/config/hwloc_internal.m4 b/config/hwloc_internal.m4
-index be45cbfd..305d9fc5 100644
+index 24aee29a..f72e54d0 100644
 --- a/config/hwloc_internal.m4
 +++ b/config/hwloc_internal.m4
-@@ -339,6 +339,7 @@ EOF
+@@ -316,6 +316,7 @@ EOF
  
      _HWLOC_CHECK_DIFF_U
      _HWLOC_CHECK_DIFF_W
@@ -16,7 +16,7 @@ index be45cbfd..305d9fc5 100644
  
      AC_CHECK_HEADERS([time.h], [
        AC_CHECK_FUNCS([clock_gettime])
-@@ -410,6 +411,7 @@ int foo(void) {
+@@ -387,6 +388,7 @@ int foo(void) {
      AC_MSG_RESULT([$hwloc_have_cxx])
  
      _HWLOC_CHECK_DIFF_U
@@ -24,7 +24,7 @@ index be45cbfd..305d9fc5 100644
  
      # Only generate these files if we're making the tests
      AC_CONFIG_FILES(
-@@ -513,6 +515,20 @@ AC_DEFUN([_HWLOC_CHECK_DIFF_U], [
+@@ -484,6 +486,20 @@ AC_DEFUN([_HWLOC_CHECK_DIFF_U], [
    AC_SUBST([HWLOC_DIFF_U])
  ])
  
@@ -43,110 +43,110 @@ index be45cbfd..305d9fc5 100644
 +])
 +
  AC_DEFUN([_HWLOC_CHECK_DIFF_W], [
-   AC_REQUIRE([_HWLOC_PROG_DIFF])
    AC_MSG_CHECKING([whether diff accepts -w])
+   if diff -w /dev/null /dev/null 2> /dev/null
 diff --git a/tests/hwloc/linux/allowed/test-topology.sh.in b/tests/hwloc/linux/allowed/test-topology.sh.in
-index 4db16b98..fe9dafd7 100644
+index 4d67fc4d..f14e508a 100644
 --- a/tests/hwloc/linux/allowed/test-topology.sh.in
 +++ b/tests/hwloc/linux/allowed/test-topology.sh.in
-@@ -67,7 +67,7 @@ test_topology ()
+@@ -73,7 +73,7 @@ test_topology ()
      else
  	if [ "$HWLOC_UPDATE_TEST_TOPOLOGY_OUTPUT" != 1 ]
  	then
--	    @DIFF@ @HWLOC_DIFF_U@ -b "$expected_output" "$output"
-+	    @DIFF@ @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@ -b "$expected_output" "$output"
+-	    diff @HWLOC_DIFF_U@ -b "$expected_output" "$output"
++	    diff @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@ -b "$expected_output" "$output"
  	    result=$?
  	else
- 	    if ! @DIFF@ "$expected_output" "$output" >/dev/null
+ 	    if ! diff "$expected_output" "$output" >/dev/null
 diff --git a/tests/hwloc/linux/test-topology.sh.in b/tests/hwloc/linux/test-topology.sh.in
-index f82d7d8e..2c3ac479 100644
+index cc094aa6..263152e3 100644
 --- a/tests/hwloc/linux/test-topology.sh.in
 +++ b/tests/hwloc/linux/test-topology.sh.in
-@@ -60,7 +60,7 @@ test_topology ()
+@@ -65,7 +65,7 @@ test_topology ()
      else
  	if [ "$HWLOC_UPDATE_TEST_TOPOLOGY_OUTPUT" != 1 ]
  	then
--	    @DIFF@ @HWLOC_DIFF_U@ -b "$expected_output" "$output"
-+	    @DIFF@ @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@ -b "$expected_output" "$output"
+-	    diff @HWLOC_DIFF_U@ -b "$expected_output" "$output"
++	    diff @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@ -b "$expected_output" "$output"
  	    result=$?
  	else
- 	    if ! @DIFF@ "$expected_output" "$output" >/dev/null
+ 	    if ! diff "$expected_output" "$output" >/dev/null
 diff --git a/tests/hwloc/x86/test-topology.sh.in b/tests/hwloc/x86/test-topology.sh.in
-index 97d361bf..126cf59c 100644
+index bfad8afa..08610ecb 100644
 --- a/tests/hwloc/x86/test-topology.sh.in
 +++ b/tests/hwloc/x86/test-topology.sh.in
-@@ -56,7 +56,7 @@ test_topology ()
+@@ -61,7 +61,7 @@ test_topology ()
      else
  	if [ "$HWLOC_UPDATE_TEST_TOPOLOGY_OUTPUT" != 1 ]
  	then
--	    @DIFF@ -b @HWLOC_DIFF_U@ "$expected_output" "$output"
-+	    @DIFF@ -b @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@ "$expected_output" "$output"
+-	    diff -b @HWLOC_DIFF_U@ "$expected_output" "$output"
++	    diff -b @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@ "$expected_output" "$output"
  	    result=$?
  	else
- 	    if ! @DIFF@ "$expected_output" "$output" >/dev/null
+ 	    if ! diff "$expected_output" "$output" >/dev/null
 diff --git a/tests/hwloc/xml/test-topology.sh.in b/tests/hwloc/xml/test-topology.sh.in
-index c283e63d..52065f2d 100644
+index b87d295f..6bffedd0 100644
 --- a/tests/hwloc/xml/test-topology.sh.in
 +++ b/tests/hwloc/xml/test-topology.sh.in
 @@ -85,7 +85,7 @@ do_run()
  
    if [ "$HWLOC_UPDATE_TEST_TOPOLOGY_OUTPUT" != 1 ]
    then
--    @DIFF@ @HWLOC_DIFF_U@ @HWLOC_DIFF_W@ "$output" "$file"
-+    @DIFF@ @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@ @HWLOC_DIFF_W@ "$output" "$file"
+-    diff @HWLOC_DIFF_U@ @HWLOC_DIFF_W@ "$output" "$file"
++    diff @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@ @HWLOC_DIFF_W@ "$output" "$file"
    else
-     if ! @DIFF@ "$output" "$file" >/dev/null
+     if ! diff "$output" "$file" >/dev/null
      then
 @@ -110,7 +110,7 @@ do_run_with_output()
  
    if [ "$HWLOC_UPDATE_TEST_TOPOLOGY_OUTPUT" != 1 ]
    then
--    @DIFF@ @HWLOC_DIFF_U@ @HWLOC_DIFF_W@ "$output" "$file"
-+    @DIFF@ @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@ @HWLOC_DIFF_W@ "$output" "$file"
+-    diff @HWLOC_DIFF_U@ @HWLOC_DIFF_W@ "$output" "$file"
++    diff @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@ @HWLOC_DIFF_W@ "$output" "$file"
    else
-     if ! @DIFF@ "$output" "$file" >/dev/null
+     if ! diff "$output" "$file" >/dev/null
      then
 diff --git a/utils/hwloc/test-hwloc-annotate.sh.in b/utils/hwloc/test-hwloc-annotate.sh.in
-index fcee52d1..e4e73c22 100644
+index eaf08933..8b03869f 100644
 --- a/utils/hwloc/test-hwloc-annotate.sh.in
 +++ b/utils/hwloc/test-hwloc-annotate.sh.in
 @@ -68,5 +68,5 @@ pu:1
  EOF
  $annotate $file $file dummy distances $distances
  
--@DIFF@ @HWLOC_DIFF_U@ $srcdir/test-hwloc-annotate.output "$file"
-+@DIFF@ @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@ $srcdir/test-hwloc-annotate.output "$file"
+-diff @HWLOC_DIFF_U@ $srcdir/test-hwloc-annotate.output "$file"
++diff @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@ $srcdir/test-hwloc-annotate.output "$file"
  rm -rf "$tmp"
 diff --git a/utils/hwloc/test-hwloc-calc.sh.in b/utils/hwloc/test-hwloc-calc.sh.in
-index 188d87a9..cdfcd30a 100644
+index 3d604d90..da6482c7 100644
 --- a/utils/hwloc/test-hwloc-calc.sh.in
 +++ b/utils/hwloc/test-hwloc-calc.sh.in
-@@ -107,5 +107,5 @@ node:0 node:3
+@@ -103,5 +103,5 @@ node:0 node:3
  root
  EOF
  ) > "$file"
--@DIFF@ @HWLOC_DIFF_U@ $srcdir/test-hwloc-calc.output "$file"
-+@DIFF@ @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@ $srcdir/test-hwloc-calc.output "$file"
+-diff @HWLOC_DIFF_U@ $srcdir/test-hwloc-calc.output "$file"
++diff @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@ $srcdir/test-hwloc-calc.output "$file"
  rm -rf "$tmp"
 diff --git a/utils/hwloc/test-hwloc-compress-dir.sh.in b/utils/hwloc/test-hwloc-compress-dir.sh.in
-index c19da1e8..63fcf134 100644
+index b50fa79c..9ffe4538 100644
 --- a/utils/hwloc/test-hwloc-compress-dir.sh.in
 +++ b/utils/hwloc/test-hwloc-compress-dir.sh.in
 @@ -46,10 +46,10 @@ set -e
  
  $compress "$tmp/test-hwloc-compress-dir.input" "$tmp/test-hwloc-compress-dir.newoutput"
  
--@DIFF@ @HWLOC_DIFF_U@ -r "$tmp/test-hwloc-compress-dir.output" "$tmp/test-hwloc-compress-dir.newoutput"
-+@DIFF@ @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@ -r "$tmp/test-hwloc-compress-dir.output" "$tmp/test-hwloc-compress-dir.newoutput"
+-diff @HWLOC_DIFF_U@ -r "$tmp/test-hwloc-compress-dir.output" "$tmp/test-hwloc-compress-dir.newoutput"
++diff @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@ -r "$tmp/test-hwloc-compress-dir.output" "$tmp/test-hwloc-compress-dir.newoutput"
  
  $compress -R "$tmp/test-hwloc-compress-dir.newoutput" "$tmp/test-hwloc-compress-dir.newoutput2"
  
--@DIFF@ @HWLOC_DIFF_U@ -r "$tmp/test-hwloc-compress-dir.input" "$tmp/test-hwloc-compress-dir.newoutput2"
-+@DIFF@ @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@ -r "$tmp/test-hwloc-compress-dir.input" "$tmp/test-hwloc-compress-dir.newoutput2"
+-diff @HWLOC_DIFF_U@ -r "$tmp/test-hwloc-compress-dir.input" "$tmp/test-hwloc-compress-dir.newoutput2"
++diff @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@ -r "$tmp/test-hwloc-compress-dir.input" "$tmp/test-hwloc-compress-dir.newoutput2"
  
  rm -rf "$tmp"
 diff --git a/utils/hwloc/test-hwloc-diffpatch.sh.in b/utils/hwloc/test-hwloc-diffpatch.sh.in
-index efc8daf6..017fa2b8 100644
+index efc8daf6..b9e5e2df 100644
 --- a/utils/hwloc/test-hwloc-diffpatch.sh.in
 +++ b/utils/hwloc/test-hwloc-diffpatch.sh.in
 @@ -52,8 +52,8 @@ cp $srcdir/test-hwloc-diffpatch.input1 .
@@ -155,53 +155,53 @@ index efc8daf6..017fa2b8 100644
  
 -diff -u $srcdir/test-hwloc-diffpatch.input1 "$output2"
 -diff -u $srcdir/test-hwloc-diffpatch.input2 "$output1"
-+@DIFF@ @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@ $srcdir/test-hwloc-diffpatch.input1 "$output2"
-+@DIFF@ @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@ $srcdir/test-hwloc-diffpatch.input2 "$output1"
++diff @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@  $srcdir/test-hwloc-diffpatch.input1 "$output2"
++diff @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@  $srcdir/test-hwloc-diffpatch.input2 "$output1"
  
  cd ..
  rm -rf "$tmp"
 diff --git a/utils/hwloc/test-hwloc-distrib.sh.in b/utils/hwloc/test-hwloc-distrib.sh.in
-index a797ba01..5dd155c6 100644
+index 67ffc1bb..6d7a6abc 100644
 --- a/utils/hwloc/test-hwloc-distrib.sh.in
 +++ b/utils/hwloc/test-hwloc-distrib.sh.in
 @@ -69,5 +69,5 @@ set -e
    $distrib --if synthetic --input "2 2 2 2" --to core 9
    echo
  ) > "$file"
--@DIFF@ @HWLOC_DIFF_U@ $srcdir/test-hwloc-distrib.output "$file"
-+@DIFF@ @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@ $srcdir/test-hwloc-distrib.output "$file"
+-diff @HWLOC_DIFF_U@ $srcdir/test-hwloc-distrib.output "$file"
++diff @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@ $srcdir/test-hwloc-distrib.output "$file"
  rm -rf "$tmp"
 diff --git a/utils/hwloc/test-hwloc-dump-hwdata/test-hwloc-dump-hwdata.sh.in b/utils/hwloc/test-hwloc-dump-hwdata/test-hwloc-dump-hwdata.sh.in
-index bf34a5ff..19cadad4 100644
+index 0654f6b8..621b1994 100644
 --- a/utils/hwloc/test-hwloc-dump-hwdata/test-hwloc-dump-hwdata.sh.in
 +++ b/utils/hwloc/test-hwloc-dump-hwdata/test-hwloc-dump-hwdata.sh.in
 @@ -33,6 +33,6 @@ export HWLOC_FSROOT
  
  $hdhd -o $tmp/output
  
--@DIFF@ @HWLOC_DIFF_U@ -r "$HWLOC_FSROOT/expected_output" "$tmp/output"
-+@DIFF@ @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@ -r "$HWLOC_FSROOT/expected_output" "$tmp/output"
+-diff @HWLOC_DIFF_U@ -r "$HWLOC_FSROOT/expected_output" "$tmp/output"
++diff @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@ -r "$HWLOC_FSROOT/expected_output" "$tmp/output"
  
  rm -rf "$tmp"
 diff --git a/utils/hwloc/test-hwloc-info.sh.in b/utils/hwloc/test-hwloc-info.sh.in
-index a36cdd09..c6fb3c60 100644
+index 298f8cf8..f5fd7cc9 100644
 --- a/utils/hwloc/test-hwloc-info.sh.in
 +++ b/utils/hwloc/test-hwloc-info.sh.in
-@@ -60,5 +60,5 @@ set -e
-   echo
-   $info --if synthetic --input "node:2 core:2 l2:2 l1d:2 pu:2" --descendants l1d -s core:1-2
- ) > "$file"
--@DIFF@ @HWLOC_DIFF_U@ $srcdir/test-hwloc-info.output "$file"
-+@DIFF@ @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@ $srcdir/test-hwloc-info.output "$file"
+@@ -64,5 +64,5 @@ set -e
+  > "$file"
+ # filtered hwlocVersion since it often changes
+ # filtered ProcessName since it may be hwloc-info or lt-hwloc-info
+-diff @HWLOC_DIFF_U@ $srcdir/test-hwloc-info.output "$file"
++diff @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@ $srcdir/test-hwloc-info.output "$file"
  rm -rf "$tmp"
 diff --git a/utils/lstopo/test-lstopo.sh.in b/utils/lstopo/test-lstopo.sh.in
-index 9f2296fe..9afec8c1 100644
+index deff4efc..be5c05a2 100644
 --- a/utils/lstopo/test-lstopo.sh.in
 +++ b/utils/lstopo/test-lstopo.sh.in
-@@ -100,5 +100,5 @@ echo "**** Import from synthetic so that we can check some exact outputs in $fil
-   echo "** Export to XML..."
-   $ls -i "$SI" -.xml
+@@ -60,5 +60,5 @@ $ls
+   $ls --export-xml-flags 1 -f $tmp/test.v1.xml
+   $ls --input "pa:1 no:2 co:1 l2:2 2" $tmp/test.synthetic
  ) > "$file"
--@DIFF@ @HWLOC_DIFF_U@ $srcdir/test-lstopo.output "$file"
-+@DIFF@ @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@ $srcdir/test-lstopo.output "$file"
+-diff @HWLOC_DIFF_U@ $srcdir/test-lstopo.output "$file"
++diff @HWLOC_DIFF_U@ @HWLOC_DIFF_STRIP_TRAILING_CR@ $srcdir/test-lstopo.output "$file"
  rm -rf "$tmp"
