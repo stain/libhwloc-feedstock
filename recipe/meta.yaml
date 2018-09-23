@@ -29,11 +29,12 @@ requirements:
     - m2-autoconf               # [win]
     - m2-make                   # [win]
     - m2-m4                     # [win]
-    - pthreads-win32		# [win]
   host:
     - libxml2
+    - pthreads-win32            # [win]
   run:
     - libxml2
+    - pthreads-win32            # [win]
 
 test:
   commands:
