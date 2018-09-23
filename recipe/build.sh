@@ -24,14 +24,14 @@ case `uname` in
         export LD=link
         export CFLAGS="-MD -I$PREFIX/Library/include -O3 -Dstrcasecmp=_stricmp"
         export CXXFLAGS="-MD -I$PREFIX/Library/include -O3 -Dstrcasecmp=_stricmp"
-        export LDFLAGS="$LDFLAGS -libpath:$PREFIX/Library/lib -no-undefined"
+        export LDFLAGS="$LDFLAGS -L$PREFIX/Library/lib -no-undefined"
         autoreconf -i
         chmod +x configure
         sed -i "s/-Wl,-DLL,-IMPLIB/-link -DLL -IMPLIB/g" configure
         sed -i "s|--output-def -Xlinker .libs/libhwloc.def|-def:.libs/libhwloc.def|g" hwloc/Makefile.in
         sed -i "s|--output-def -Xlinker .libs/libhwloc.def|-def:.libs/libhwloc.def|g" hwloc/Makefile.am
         ./configure --prefix="$PREFIX/Library" --libdir="$PREFIX/Library/lib" $DISABLES
-        make -j${CPU_COUNT} V=1 LDFLAGS="$LDFLAGS gdi32.lib -Xlinker pthreads.lib user32.lib"
+        make -j${CPU_COUNT} V=1 LDFLAGS="$LDFLAGS gdi32.lib $PREFIX/Library/lib/pthreads.lib user32.lib"
         ;;
 esac
 
