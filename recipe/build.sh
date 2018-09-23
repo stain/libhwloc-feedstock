@@ -33,7 +33,7 @@ case `uname` in
         sed -i "s|--output-def -Xlinker .libs/libhwloc.def|-def:.libs/libhwloc.def|g" hwloc/Makefile.am
         for sh_file in test-hwloc-annotate.sh test-hwloc-calc.sh test-hwloc-diffpatch.sh test-hwloc-distrib.sh test-hwloc-compress-dir.sh; do
             # ignore CR LF differences
-            sed -i "s|diff -u|diff --strip-trailing-cr -u|g" utils/hwloc/$sh_file
+            sed -i "s|@HWLOC_DIFF_U@|@HWLOC_DIFF_U@ --strip-trailing-cr|g" utils/hwloc/$sh_file.in
         done
         sed -i "s|#include <unistd.h>||g" "doc/examples/cpuset+bitmap+cpubind.c"
         sed -i "s|#include <unistd.h>||g" "doc/examples/nodeset+membind+policy.c"
