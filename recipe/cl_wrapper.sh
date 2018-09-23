@@ -29,6 +29,8 @@ for i, arg in enumerate(sys.argv):
         link_args.extend(arg[4:].split(","))
     elif arg == "-no-undefined":
         continue
+    elif arg.endswith(".lib"):
+        link_args.append(arg)
     else:
         args.append(arg)
 
