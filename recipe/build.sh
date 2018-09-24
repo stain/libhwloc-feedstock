@@ -24,8 +24,8 @@ case `uname` in
         export AS=llvm-as
         export AR=llvm-ar
         export LD=link
-        export CFLAGS="-MD -I$PREFIX/Library/include -O2 -Dstrcasecmp=_stricmp"
-        export CXXFLAGS="-MD -I$PREFIX/Library/include -O2 -Dstrcasecmp=_stricmp"
+        export CFLAGS="-MD -I$PREFIX/Library/include -O2"
+        export CXXFLAGS="-MD -I$PREFIX/Library/include -O2"
         export LDFLAGS="$LDFLAGS -L$PREFIX/Library/lib -no-undefined $PREFIX/Library/lib/pthreads.lib"
         # Skip failing tests that are skipped on Linux x86_64 and OSX, but not skipped on windows
         sed -i "s|SUBDIRS += x86||g" tests/hwloc/Makefile.am

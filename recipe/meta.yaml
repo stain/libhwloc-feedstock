@@ -15,6 +15,7 @@ source:
     - unistd.diff
     - s_irwxu.patch
     - cr.patch
+    - strcasecmp.patch
 
 build:
   number: 0
