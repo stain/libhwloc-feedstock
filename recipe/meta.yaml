@@ -11,16 +11,39 @@ source:
   fn: {{ pname }}-{{ version }}.tar.gz
   url: https://www.open-mpi.org/software/hwloc/v{{ '.'.join(version.split('.')[:2]) }}/downloads/{{ pname }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
+  patches:
+    - unistd.diff
+    - s_irwxu.patch
+    - cr.patch
+    - strcasecmp.patch
 
 build:
   number: 0
-  skip: True  # [win]
+  skip: True  # [win and vc<14]
 
 requirements:
   build:
-    - libxml2 2.9.*
+    - {{ compiler('cxx') }}
+    - pkg-config                # [unix]
+    - posix                     # [win]
+    - clangdev                  # [win]
+    - lld                       # [win]
+    - m2-perl                   # [win]
+    - m2-automake-wrapper       # [win]
+    - m2-libtool                # [win]
+    - m2-autoconf               # [win]
+    - m2-make                   # [win]
+    - m2-m4                     # [win]
+    - python >3                 # [win]
+    - automake                  # [unix]
+    - libtool                   # [unix]
+    - autoconf                  # [unix]
+  host:
+    - libxml2
+    - pthreads-win32            # [win]
   run:
-    - libxml2 2.9.*
+    - libxml2
+    - pthreads-win32            # [win]
 
 test:
   commands:
