@@ -22,6 +22,7 @@ requirements:
     - pkg-config                # [unix]
     - posix                     # [win]
     - clangdev                  # [win]
+    - llvmdev                   # [win]
     - lld                       # [win]
     - m2-perl                   # [win]
     - m2-automake-wrapper       # [win]
@@ -53,3 +54,4 @@ about:
 extra:
   recipe-maintainers:
     - inducer
+    - isuruf
